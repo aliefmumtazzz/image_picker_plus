@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 const _kCropGridColumnCount = 3;
 const _kCropGridRowCount = 3;
@@ -177,7 +177,8 @@ class CustomCropState extends State<CustomCrop> with TickerProviderStateMixin {
                 if (widget.isThatImage) {
                   return buildCustomPaint();
                 } else {
-                  return _DisplayVideo(selectedFile: widget.image);
+                  // return _DisplayVideo(selectedFile: widget.image);
+                  return const SizedBox.shrink();
                 }
               },
               animation: _activeController,
@@ -620,76 +621,76 @@ class _CropPainter extends CustomPainter {
   }
 }
 
-class _DisplayVideo extends StatefulWidget {
-  final File selectedFile;
-  const _DisplayVideo({Key? key, required this.selectedFile}) : super(key: key);
+// class _DisplayVideo extends StatefulWidget {
+//   final File selectedFile;
+//   const _DisplayVideo({Key? key, required this.selectedFile}) : super(key: key);
 
-  @override
-  State<_DisplayVideo> createState() => _DisplayVideoState();
-}
+//   @override
+//   State<_DisplayVideo> createState() => _DisplayVideoState();
+// }
 
-class _DisplayVideoState extends State<_DisplayVideo> {
-  late VideoPlayerController controller;
-  late Future<void> initializeVideoPlayerFuture;
+// class _DisplayVideoState extends State<_DisplayVideo> {
+//   late VideoPlayerController controller;
+//   late Future<void> initializeVideoPlayerFuture;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    controller = VideoPlayerController.file(widget.selectedFile);
-    initializeVideoPlayerFuture = controller.initialize();
-    controller.setLooping(true);
-  }
+//     controller = VideoPlayerController.file(widget.selectedFile);
+//     initializeVideoPlayerFuture = controller.initialize();
+//     controller.setLooping(true);
+//   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     controller.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: initializeVideoPlayerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              InteractiveViewer(
-                minScale: 1,
-                child: SizedBox(
-                    height: double.infinity,
-                    width: double.infinity,
-                    child: VideoPlayer(controller)),
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (controller.value.isPlaying) {
-                        controller.pause();
-                      } else {
-                        controller.play();
-                      }
-                    });
-                  },
-                  child: Icon(
-                    controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: Colors.white,
-                    size: 45,
-                  ),
-                ),
-              )
-            ],
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(strokeWidth: 1),
-          );
-        }
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       future: initializeVideoPlayerFuture,
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.done) {
+//           return Stack(
+//             alignment: Alignment.center,
+//             children: [
+//               InteractiveViewer(
+//                 minScale: 1,
+//                 child: SizedBox(
+//                     height: double.infinity,
+//                     width: double.infinity,
+//                     child: VideoPlayer(controller)),
+//               ),
+//               Align(
+//                 alignment: Alignment.center,
+//                 child: GestureDetector(
+//                   onTap: () {
+//                     setState(() {
+//                       if (controller.value.isPlaying) {
+//                         controller.pause();
+//                       } else {
+//                         controller.play();
+//                       }
+//                     });
+//                   },
+//                   child: Icon(
+//                     controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+//                     color: Colors.white,
+//                     size: 45,
+//                   ),
+//                 ),
+//               )
+//             ],
+//           );
+//         } else {
+//           return const Center(
+//             child: CircularProgressIndicator(strokeWidth: 1),
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
